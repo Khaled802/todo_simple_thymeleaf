@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'update [' + ${todoUpdateDto.title} + ']'"> </title>
+    <link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/webjars/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css">
+
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="'Update ' + ${todoUpdateDto.title}"> </h1>
+        <form method="post" th:object="${todoUpdateDto}">
+            <div class="form-group">
+                <label for="test">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" th:field="*{title}">
+                <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color: red;">Title Error</span>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input type="text" class="form-control" id="description" name="description" th:field="*{description}">
+                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color: red;">Description Error</span>
+            </div>
+            <div class="form-group">
+                <label for="done">Done:</label>
+                <input type="checkbox" id="done" name="done" th:field="*{done}"  class="form-check-input" /> </input>
+                <!-- <input type="text"  th:field="*{done}"> -->
+                <span th:if="${#fields.hasErrors('done')}" th:errors="*{done}" style="color: red;">done Error</span>
+            </div>
+            <div class="form-group">
+                <label for="end"> End Date:</label>
+                <input type="text" class="form-control date" id="end" name="end" th:field="*{end}">
+                <span th:if="${#fields.hasErrors('end')}" th:errors="*{end}" style="color: red;">end Error</span>
+            </div>
+            <button  type="submit" class="btn btn-outline-primary"> Update Todo </button>
+        </form>
+    </div>
+
+    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+
+    <script>
+        $('.date').datepicker({
+            format: 'yyyy-mm-dd',
+            startDate: '0d',
+            autoclose: true,
+            todayHighlight: true
+        });
+    </script>
+</body>
+</html>

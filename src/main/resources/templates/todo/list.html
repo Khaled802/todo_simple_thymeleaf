@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Todos </title>
+    <link href="webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="md-5">
+            <h1> Todos </h1>
+        </div>
+        <div >
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>End Date</th>
+                        <th>Done</th>
+                        <th> Update </th>
+                        <th> Delete </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="todo : ${todos}">
+    
+                        <td th:text="${todo.title}" th:style="'color: ' + (${todo.isThereTime()} ? 'white' : 'gray')"></td>
+                        <td th:text="${#strings.substring(todo.description, 0, 10)} + '...'" th:style="'color: ' + (${todo.isThereTime()} ? 'white' : 'gray')"></td>
+                        <td th:text="${todo.end}" th:style="'color: ' + (${todo.isThereTime()} ? 'white' : 'gray')"></td>
+                        <td>
+                            <div th:switch="${todo.done}"> 
+                                <p th:case="true"> ✔️ </p>
+                                <p th:case="*"> 🔃 </p> 
+                              </div>                          
+                        </td>
+                        <td> <a th:href="@{/todos/update/{id}(id=${todo.id})}" class="btn btn-outline-primary"> Update </a></td>
+                        <td> <a th:href="@{/todos/delete/{id}(id=${todo.id})}" class="btn btn-outline-danger"> Delete </a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <a href="/todos/create" class="btn btn-outline-success"> Add Todo </a>
+    </div>
+    
+
+    <script src="webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="webjars/jquery/3.7.1/jquery.min.js"></script>
+</body>
+</html>
